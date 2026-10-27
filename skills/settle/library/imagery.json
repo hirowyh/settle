@@ -1,0 +1,7 @@
+[
+  {"id":"none","name":"No pictures","say":"no imagery: type, numbers and shapes carry the piece","tones":["quiet","technical","editorial","luxury","bold","warm","playful"]},
+  {"id":"shapes","name":"Flat shapes","say":"drawn in code: flat shapes in the palette's colours","tones":["playful","warm","bold"]},
+  {"id":"pixels","name":"Pixel drawings","say":"drawn in code on a 16 by 16 grid, one colour per cell","tones":["playful","editorial"]},
+  {"id":"lines","name":"Line drawings","say":"drawn in code: single-weight lines in the ink","tones":["quiet","technical","editorial","luxury"]},
+  {"id":"photos","name":"Their photos","say":"the person's own photos, or one openly licensed photo fetched when they ask for one","needs":"photos","tones":[]}
+]

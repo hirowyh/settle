@@ -1,0 +1,19 @@
+{
+  "about": "The pilot from the plan's Phase 4: the four pieces the maintainer liked in Stage 3, written as beginner requests, four practice requests from requests.json, then chart-1 and the price filter three more times each, to see whether one request lands on a different look every run.",
+  "requests": [
+    {"id": "pilot-palette", "kind": "component", "request": "a command menu for my notes app that opens with cmd+k and filters as i type"},
+    {"id": "pilot-booking", "kind": "reel", "request": "a short looping animation of someone booking a table at my restaurant, for the top of my website"},
+    {"id": "pilot-notifications", "kind": "widget", "request": "notifications that stack up in the corner and i can swipe them away"},
+    {"id": "pilot-price", "kind": "component", "request": "a price slider with two handles for my online shop's filters"},
+    {"id": "chart-1", "kind": "chart", "request": "show my sales for the last 12 months, make it pop"},
+    {"id": "chart-5", "kind": "chart", "request": "bar chart of how many tickets each person on my team closed this sprint, fancy enough for a presentation"},
+    {"id": "widget-2", "kind": "widget", "request": "a small music player card"},
+    {"id": "reel-6", "kind": "reel", "request": "show a file uploading, getting processed and finishing, as a little animation for my product hunt launch"},
+    {"id": "chart-1-r2", "kind": "chart", "request": "show my sales for the last 12 months, make it pop"},
+    {"id": "chart-1-r3", "kind": "chart", "request": "show my sales for the last 12 months, make it pop"},
+    {"id": "chart-1-r4", "kind": "chart", "request": "show my sales for the last 12 months, make it pop"},
+    {"id": "pilot-price-r2", "kind": "component", "request": "a price slider with two handles for my online shop's filters"},
+    {"id": "pilot-price-r3", "kind": "component", "request": "a price slider with two handles for my online shop's filters"},
+    {"id": "pilot-price-r4", "kind": "component", "request": "a price slider with two handles for my online shop's filters"}
+  ]
+}

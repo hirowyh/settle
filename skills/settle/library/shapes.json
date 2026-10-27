@@ -1,0 +1,6 @@
+[
+  {"id":"round","name":"Round","say":"full pills on controls, round cards","radius":"24px","round":"999px","tones":["playful","warm","quiet","luxury","bold"]},
+  {"id":"soft","name":"Soft corners","say":"softly rounded cards and controls","radius":"14px","round":"10px","tones":["quiet","warm","technical","luxury","playful","bold"]},
+  {"id":"mixed","name":"Square cards, round controls","say":"square cards, full pills on controls","radius":"2px","round":"999px","tones":["editorial","technical","bold"],"asked":true},
+  {"id":"square","name":"Square","say":"square cards and square controls","radius":"0px","round":"0px","tones":["editorial"],"asked":true}
+]

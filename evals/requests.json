@@ -1,0 +1,32 @@
+{
+  "about": "The 24 beginner requests from the plan's eval section, six per kind, English only. Each one runs once with no skill (the baseline) and once with settle.",
+  "requests": [
+    {"id": "comp-1", "kind": "component", "request": "make a switch that feels really nice to click"},
+    {"id": "comp-2", "kind": "component", "request": "a like button for my recipe blog, something fun happens when you tap the heart"},
+    {"id": "comp-3", "kind": "component", "request": "i need a download button that shows the progress and then says it's done"},
+    {"id": "comp-4", "kind": "component", "request": "star rating where you pick 1 to 5 stars, make it satisfying"},
+    {"id": "comp-5", "kind": "component", "request": "a dropdown to choose your country but make it smooth like on a mac"},
+    {"id": "comp-6", "kind": "component", "request": "tabs for my app settings: profile, billing, notifications. clean and snappy please"},
+
+    {"id": "chart-1", "kind": "chart", "request": "show my sales for the last 12 months, make it pop"},
+    {"id": "chart-2", "kind": "chart", "request": "visitors per day this month, make it look alive"},
+    {"id": "chart-3", "kind": "chart", "request": "donut chart of where my money went this month: rent 1200, food 450, transport 180, fun 220, savings 300"},
+    {"id": "chart-4", "kind": "chart", "request": "I want to know whether my token consumption has increased over the past few weeks."},
+    {"id": "chart-5", "kind": "chart", "request": "bar chart of how many tickets each person on my team closed this sprint, fancy enough for a presentation"},
+    {"id": "chart-6", "kind": "chart", "request": "A ring showing how close I am today to typing 10,000 characters."},
+
+    {"id": "widget-1", "kind": "widget", "request": "a good-looking little weather card"},
+    {"id": "widget-2", "kind": "widget", "request": "a small music player card"},
+    {"id": "widget-3", "kind": "widget", "request": "pomodoro timer for my study site that i can start, pause and reset"},
+    {"id": "widget-4", "kind": "widget", "request": "a todo list where i can tick things off and drag them to reorder"},
+    {"id": "widget-5", "kind": "widget", "request": "An anime watchlist card that shows the next episode of the anime I'm following, the streaming platform, and how much time is left until it airs."},
+    {"id": "widget-6", "kind": "widget", "request": "An exercise tracker that uses check-ins to complete each step of the process, from the time of the last workout—having the idea for this workout—preparation—execution—how long the execution lasted—completion."},
+
+    {"id": "reel-1", "kind": "reel", "request": "a short looping animation that shows off my todo app"},
+    {"id": "reel-2", "kind": "reel", "request": "a short looping animation that shows off my app's buttons"},
+    {"id": "reel-3", "kind": "reel", "request": "10 second promo animation for my habit tracker app, to post on twitter"},
+    {"id": "reel-4", "kind": "reel", "request": "animated intro for my landing page showing how my budgeting app works in 3 steps"},
+    {"id": "reel-5", "kind": "reel", "request": "a looping animation of a chat where a message comes in and someone types a reply, for my website's hero"},
+    {"id": "reel-6", "kind": "reel", "request": "show a file uploading, getting processed and finishing, as a little animation for my product hunt launch"}
+  ]
+}

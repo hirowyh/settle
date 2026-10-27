@@ -1,0 +1,21 @@
+# Third-party reference material: kept on disk, never committed
+/reference/
+
+# Agent rules and local notes: kept on disk, never committed
+/AGENTS.md
+/CLAUDE.md
+/_local/
+/docs/
+
+# macOS
+.DS_Store
+
+# Tooling and render output
+node_modules/
+/out/
+
+# Python
+__pycache__/
+
+# Local measurements: kept on disk, never committed
+/research/

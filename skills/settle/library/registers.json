@@ -1,0 +1,5 @@
+[
+  {"id":"crisp","name":"Crisp","say":"quick springs that overshoot slightly","tones":["bold","playful","technical","quiet"]},
+  {"id":"soft","name":"Soft","say":"eased glides that start slowly; nothing springs in","tones":["warm","editorial","quiet","playful"]},
+  {"id":"smooth","name":"Smooth","say":"long eased grows; folds settle on springs","tones":["luxury","quiet","editorial","warm"]}
+]

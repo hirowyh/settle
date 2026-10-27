@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Reel title</title>
+<!-- The dealt look goes here: the font link and the <style> holding :root that `node scripts/deal.mjs --pick 1` prints. The dealt
+     direction (references/directions.md) shapes what the stage shows; the stage itself stays. -->
+<style>
+/* Colours, corners, shadows and faces come only from the sheet. */
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; } /* a phone must not enlarge text on its own */
+body {
+  margin: 0;
+  min-height: 100dvh;
+  display: grid;
+  place-content: center;
+  gap: 14px;
+  padding: 16px;
+  background: var(--surface);
+  color: var(--ink);
+  font: 15px/1.4 var(--font);
+  -webkit-font-smoothing: antialiased;
+}
+/* The stage keeps the reel's shape; the world inside is WORLD.w units wide. */
+.stage {
+  position: relative;
+  width: min(92vw, calc((100dvh - 120px) * var(--aspect)), 960px);
+  aspect-ratio: var(--aspect);
+  overflow: hidden;
+  border-radius: min(var(--radius), 14px);
+  background: var(--ground);
+}
+.world { position: absolute; left: 0; top: 0; transform-origin: 0 0; }
+.camera { position: absolute; inset: 0; }
+.cursor { position: absolute; left: 0; top: 0; width: 24px; height: 34px; pointer-events: none; transform-origin: 3px 3px; }
+.controls { display: flex; align-items: center; gap: 12px; width: 100%; }
+.controls button {
+  border: 0; border-radius: var(--round); padding: 7px 14px; background: var(--ink); color: var(--on-ink);
+  font: 500 13px/1 var(--font); cursor: pointer;
+}
+.controls button.quiet { background: transparent; color: var(--muted); }
+.controls input[type=range] { flex: 1; accent-color: var(--ink); }
+.controls output { font: 13px/1 var(--mono); min-width: 5ch; text-align: right; color: var(--muted); }
+:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+/* The reel's own styles go below. */
+</style>
+<script type="module">
+/* In the head, so it runs before every module script in the body. Paste skills/settle/assets/kernel.js here, then name the dealt register once: */
+settle.register("crisp");
+</script>
+</head>
+<body>
+<div class="stage" id="stage" style="--aspect: 1">
+  <div class="world" id="world">
+    <div class="camera" id="camera">
+      <!-- The reel's scene, laid out in world units. -->
+    </div>
+    <svg class="cursor" id="cursor" viewBox="0 0 24 34" aria-hidden="true">
+      <path d="M3 3 L3 27 L9 21 L13 31 L17 29 L13 20 L21 20 Z" fill="#000" stroke="#fff" stroke-width="2" stroke-linejoin="round"/><!-- settle-allow: sheet (the pointer keeps the system's black and white) -->
+    </svg>
+  </div>
+</div>
+<div class="controls">
+  <button id="play" type="button">Pause</button>
+  <input id="scrub" type="range" min="0" step="0.001" aria-label="Time">
+  <output id="clock">0.00</output>
+  <button id="link" class="quiet" type="button">Copy link to this frame</button>
+</div>
+<script type="module">
+const DURATION = 8;             // seconds; the last frame must match the first
+const WORLD = { w: 1000, h: 1000 };
+
+// Camera keys: { t, scale, x, y } in world units; it glides from key to key.
+const CAMERA = [{ t: 0, scale: 1, x: 500, y: 500 }];
+// Cursor path: { t, x, y, press } in world units; a press dips the cursor for a moment.
+const CURSOR = [{ t: 0, x: 760, y: 820 }];
+
+function between(keys, t) {
+  let i = 0;
+  while (i < keys.length - 1 && keys[i + 1].t <= t) i++;
+  const a = keys[i], b = keys[Math.min(i + 1, keys.length - 1)];
+  const u = b === a || b.t === a.t ? 1 : settle.glide((t - a.t) / (b.t - a.t));
+  return { a, b, u: t < a.t ? 0 : Math.min(u, 1) };
+}
+
+function cameraAt(t) {
+  const { a, b, u } = between(CAMERA, t);
+  return { s: a.scale + (b.scale - a.scale) * u, cx: a.x + (b.x - a.x) * u, cy: a.y + (b.y - a.y) * u };
+}
+
+/** Where a scene point shows on the stage at time t: aim the cursor with this. */
+function project(x, y, t) {
+  const { s, cx, cy } = cameraAt(t);
+  return { x: WORLD.w / 2 + s * (x - cx), y: WORLD.h / 2 + s * (y - cy) };
+}
+
+function render(t) {
+  const { s, cx, cy } = cameraAt(t);
+  camera.style.transform = `scale(${s}) translate(${WORLD.w / 2 - cx}px, ${WORLD.h / 2 - cy}px)`;
+
+  const cur = between(CURSOR, t);
+  const x = cur.a.x + (cur.b.x - cur.a.x) * cur.u, y = cur.a.y + (cur.b.y - cur.a.y) * cur.u;
+  const pressed = CURSOR.some((k) => k.press && t >= k.t && t < k.t + 0.1);
+  cursor.style.transform = `translate(${x}px, ${y}px) scale(${pressed ? 0.87 : 1})`;
+
+  // The reel's scene: set every style from t.
+}
+
+const stage = document.getElementById("stage"), world = document.getElementById("world");
+const camera = document.getElementById("camera"), cursor = document.getElementById("cursor");
+stage.style.setProperty("--aspect", WORLD.w / WORLD.h);
+world.style.width = WORLD.w + "px";
+world.style.height = WORLD.h + "px";
+camera.style.transformOrigin = `${WORLD.w / 2}px ${WORLD.h / 2}px`;
+new ResizeObserver(() => { world.style.transform = `scale(${stage.clientWidth / WORLD.w})`; }).observe(stage);
+
+const play = document.getElementById("play"), scrub = document.getElementById("scrub"), clock = document.getElementById("clock");
+scrub.max = DURATION;
+const reel = settle.timeline(DURATION, (t) => {
+  render(t);
+  scrub.value = t;
+  clock.value = t.toFixed(2);
+  play.textContent = reel && reel.playing ? "Pause" : "Play";
+});
+play.onclick = () => (reel.playing ? reel.pause() : reel.play());
+scrub.oninput = () => { reel.pause(); reel.seek(+scrub.value); };
+document.getElementById("link").onclick = () => {
+  location.hash = "t=" + reel.time.toFixed(3);
+  navigator.clipboard && navigator.clipboard.writeText(location.href);
+};
+addEventListener("keydown", (e) => {
+  if (e.target === scrub) return;
+  if (e.code === "Space" && !e.target.closest("button")) { e.preventDefault(); play.click(); } // a focused button takes its own Space
+  if (e.key === "ArrowRight" || e.key === "ArrowLeft") { reel.pause(); reel.seek(reel.time + (e.key === "ArrowRight" ? 1 : -1) / 60); }
+});
+const frozen = /t=([\d.]+)/.exec(location.hash);
+if (frozen) { reel.pause(); reel.seek(+frozen[1]); }
+window.reel = reel; // snap.mjs seeks this to grab frames
+</script>
+</body>
+</html>

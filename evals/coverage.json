@@ -1,0 +1,17 @@
+{
+  "about": "Phase 5, round 2: the coverage set of 12, each a type no earlier test built and none of round 1's. Three per structure; half are shapes settle has no recipe for (cov-code, cov-leaderboard, cov-scatter, cov-kanban, cov-calendar, cov-flashcards). Five run in a project, named by fixture: Next.js, Astro, Vue and Svelte, and a plain HTML site whose FAQ already exists. The rest bring words and contexts round 1 lacks: premium, like an iPhone, a dashboard on a TV, a newsletter, calm, colourful, a printed ticket, a dark subject, a vertical story and a one-off video intro.",
+  "requests": [
+    {"id": "cov-code", "kind": "component", "request": "the part of my app's login where you type the 6 digit code we text you. make it feel premium"},
+    {"id": "cov-leaderboard", "kind": "chart", "request": "A leaderboard for our office step challenge that we can put on the TV as a dashboard. Scores update every few seconds and people should move up and down as they pass each other."},
+    {"id": "cov-kanban", "kind": "widget", "fixture": "next-app", "request": "a board in my app for tracking my job applications, where i drag each one from applied to interview to offer"},
+    {"id": "cov-story", "kind": "reel", "request": "a colourful vertical video for my instagram story showing how my plant app reminds you to water your plants"},
+    {"id": "cov-sheet", "kind": "component", "request": "a share menu that slides up from the bottom when you tap share, like on an iphone, and you can swipe it down to close"},
+    {"id": "cov-heatmap", "kind": "chart", "request": "For my newsletter, a chart of every day I wrote this year: one little square per day, darker on the days I wrote more."},
+    {"id": "cov-calendar", "kind": "widget", "fixture": "vue-app", "request": "A calendar page that shows my gym classes for the month, where I can flip to the next month."},
+    {"id": "cov-ticket", "kind": "reel", "request": "for my event ticket app's homepage, a short looping animation of someone's ticket getting scanned at the door"},
+    {"id": "cov-faq", "kind": "component", "fixture": "faq-site", "request": "the questions on my faq page just snap open and shut. can you make them open smoothly?"},
+    {"id": "cov-scatter", "kind": "chart", "fixture": "astro-blog", "request": "a chart for my blog post about the coffee shops in my town. each shop is a dot: cheaper to the left, better coffee higher up"},
+    {"id": "cov-flashcards", "kind": "widget", "fixture": "svelte-app", "request": "flashcards for my spanish words: tap a card to flip it and see the english, swipe it away for the next one. keep it calm, studying stresses me out"},
+    {"id": "cov-intro", "kind": "reel", "request": "a 5 second intro for the start of my astronomy videos on youtube, with my channel name, Deep Field"}
+  ]
+}
