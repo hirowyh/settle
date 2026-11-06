@@ -10,7 +10,7 @@ The data as a plain array in the piece's script, or from the project's own sourc
 
 - **A headline number**: the one figure the chart exists to show, big and tight, over a small grey label that names it ("712 mm" over "fell in 2025"). It ticks to its value on arrival.
 - **The plot**: marks in the ink, the accent on the mark in focus. Three faint gridlines at most, with 11–12px labels. No frame around the plot.
-- **A readout**: hidden at rest; hovering with a mouse, a tap with touch or keyboard focus selects a mark, and a tap outside hides it. A small pill names the mark ("Nov · 131 mm") and its number ticks between marks. The readout follows the pointer exactly and springs between marks under the keyboard. A touch scroll never selects. Keep it on a line where it covers no other mark.
+- **A readout**: hidden at rest; hovering with a mouse, a tap with touch or keyboard focus selects a mark, and a tap outside hides it. A small pill names the mark ("Nov · 131 mm") and its number ticks between marks. The readout follows the pointer exactly and springs between marks under the keyboard. A touch scroll never selects. Keep it on a line where it covers no other mark. Only marks that carry a value take it; gridlines and ornament take none.
 - **One control when the data has a second axis**: a period or a metric, as a segmented pill whose indicator stretches. Switching retargets every mark mid-flight.
 - **Keys**: the plot is one focus stop, `role="slider"` over the marks, with `aria-valuetext` in words.
 
@@ -29,6 +29,13 @@ The data as a plain array in the piece's script, or from the project's own sourc
 - Marks are the ink, or the ink at stepped strengths (100, 70, 45, 25 %) when categories need telling apart. The accent goes on the mark in focus or the one category that matters.
 - A donut of five categories is five ink steps with gaps between segments; the focused segment takes the accent, moves out 3px and puts its number in the centre.
 - A second series, when the chart compares two, takes the second accent or a dashed ink line.
+- Every shade stands for something in the data. A range of values, such as a heatmap's, steps one colour from light to dark. Past five categories, label the marks and add no more steps.
+
+## Honest marks
+
+- A bar's length is its value: bars start at zero, and the axis never breaks. When one value dwarfs the rest, let its bar run tall and label it.
+- A circle's area is its value, so its radius grows with the square root.
+- When each mark counts a unit, the label under the headline says so: "one dot = 2 incidents".
 
 ## The signature moment
 
