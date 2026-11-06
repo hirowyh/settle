@@ -1,0 +1,19 @@
+skills/settle/references/kinds/data-view.md
+  s_b1f5a503a8b84a::t_4da8a363cbd2b4 13,32-38
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "6093eba6b1d4817e4d591da0ca2863a823b31278",
+  "prompts": {},
+  "sessions": {
+    "s_b1f5a503a8b84a": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "e3c2f69a-5fa7-423f-80b1-1dac1eceb76c",
+        "model": "unknown"
+      },
+      "human_author": "hirowyh <310033246+hirowyh@users.noreply.github.com>"
+    }
+  }
+}
