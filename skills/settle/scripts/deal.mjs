@@ -85,7 +85,9 @@ export function dealOptions(input, { seed: s, history = [] } = {}) {
   const options = [];
   for (let k = 0; k < 3; k++) {
     const taken = (key) => options.map((o) => o[key]?.id);
-    const direction = dirs.length ? pick(leastUsed(fresh(dirs, taken("direction")), "direction")) : null;
+    // a direction with a weight under 1 joins the pool only that share of the time, and never two deals running; one with no weight draws no number, so its seeds deal as before
+    const dealable = dirs.filter((d) => d.weight === undefined || (d.id !== recent("direction", 1)[0] && rnd() < d.weight));
+    const direction = dirs.length ? pick(leastUsed(fresh(dealable.length ? dealable : dirs, taken("direction")), "direction")) : null;
     let palette = null;
     if (!i.keep.includes("palette")) {
       const used = recent("palette", 6), left = pals.filter((p) => !taken("palette").includes(p.id)), fam = left.filter((p) => p.family === fams[k % fams.length]);
@@ -125,6 +127,7 @@ export function check() {
     if (!d.kinds?.length || d.kinds.some((k) => !KINDS.includes(k))) bad.push(`direction ${d.id}: kinds must be some of ${KINDS.join(", ")}`);
     for (const [part, ids] of [["shapes", d.shapes], ["materials", d.materials], ["imagery", d.imagery]]) for (const id of ids || []) if (!L[part].some((x) => x.id === id)) bad.push(`direction ${d.id}: unknown ${part} entry ${id}`);
     if (d.type && d.type !== "system") bad.push(`direction ${d.id}: type is "system" or absent`);
+    if (d.weight !== undefined && !(d.weight > 0 && d.weight <= 1)) bad.push(`direction ${d.id}: weight is above 0 and at most 1`);
   }
   for (const k of KINDS) if (L.directions.filter((d) => !d.named && d.kinds.includes(k)).length < 2) bad.push(`kind ${k}: fewer than two dealt directions`);
   for (const p of L.palettes) {

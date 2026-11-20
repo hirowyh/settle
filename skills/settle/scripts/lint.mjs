@@ -135,6 +135,12 @@ for (const file of files) {
   each(/outline\s*:\s*(none|0)\b/i, (l, i) => { if (!/:focus-visible/.test(code)) add("FAIL", "outline", i, "outline: none with no :focus-visible ring: keyboard focus disappears"); });
   each(/<meta[^>]*name=["']viewport["'][^>]*(user-scalable\s*=\s*(no|0)|maximum-scale\s*=\s*1(\.0)?\b)/i, (l, i) => add("FAIL", "zoom", i, "the viewport blocks zoom: let people pinch"));
 
+  // Turned sheets under a device read as a pad of notes: a device is drawn as the device (directions.md, Every direction).
+  // Static: it sees a turned .layer and a device in the same file, not how they stack.
+  const turned = [...code.matchAll(/[^{}]*\.layer\b[^{}]*\{([^}]*)\}/g)].find((m) => /\brotate\s*:|rotate\(/.test(m[1]));
+  const DEVICE = /[.#](phone|device|laptop|tablet|bezel|handset|notch|sensor)\b|\b(class|id|className)\s*=\s*["'][^"']*\b(phone|device|laptop|tablet|bezel|handset|notch|sensor)\b/i;
+  if (turned && DEVICE.test(code)) add("FAIL", "paper-stack", code.slice(0, turned.index + turned[0].search(/\S/)).split("\n").length - 1, "turned paper sheets under a device: draw the device itself (bezel, screen, sensor housing), with one flat sheet behind the whole composition at most");
+
   // The ground and the palette
   const ground = /--ground\s*:\s*([^;]+);/.exec(code)?.[1] || /(?:^|\n)\s*(?:html|body)\s*\{[^}]*background(?:-color)?\s*:\s*([^;]+);/.exec(code)?.[1];
   const gc = ground && (ground.match(COLOUR) || []).map(parseColour)[0];

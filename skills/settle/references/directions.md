@@ -1,11 +1,11 @@
 # Directions
 
-A direction dresses the piece: its material, where it sits on the page, and its one ornament. The request sets the piece's form, and no direction changes it. The dealer deals Card, Instrument and Cut paper; Card and Cut paper also frame reels. The rest come only when the request asks for them (`references/words.md`, `--direction`): Whole screen for a screen, In place for a piece whose place the request names, Glass for glass, Scene for a reel set in a place, and System, Editorial, Split and Stationery for their contexts. Build from the dealt direction's section below. The sheet still supplies every colour, face, corner and shadow. A direction adds layout, drawing and tints of the sheet's own colours.
+A direction dresses the piece: its material, where it sits on the page, and its one ornament. The request sets the piece's form, and no direction changes it. The dealer deals Card, Instrument and Cut paper, Cut paper at half weight and never twice running; Card and Cut paper also frame reels. The rest come only when the request asks for them (`references/words.md`, `--direction`): Whole screen for a screen, In place for a piece whose place the request names, Glass for glass, Scene for a reel set in a place, and System, Editorial, Split and Stationery for their contexts. Build from the dealt direction's section below. The sheet still supplies every colour, face, corner and shadow. A direction adds layout, drawing and tints of the sheet's own colours.
 
 ## Every direction
 
 - **The subject's idea comes first.** In the brief, say what this direction becomes for this subject: Instrument for a plant shop's price filter is a ruler of prices with a tick every £5; Stationery for a booking reel is the restaurant's printed menu. Two pieces in one direction still differ because their subjects differ.
-- **The request sets the form.** The structure's file in `references/kinds/` says what comes back: a control at its real size, a composite as one card or panel. No direction changes that: a widget stays one widget, and a full screen comes only when the request asks for a screen. The ground around the piece stays plain, and pictures go inside the piece, where its content needs them. Variety comes from the look and from how the parts sit inside the piece.
+- **The request sets the form.** The structure's file in `references/kinds/` says what comes back: a control at its real size, a composite as one card or panel. No direction changes that: a widget stays one widget, and a full screen comes only when the request asks for a screen. A direction dresses the object and never turns it into another one: a phone, a laptop or another device is drawn as the device, with its bezel, screen and sensor housing, and a chart stays a chart. The ground around the piece stays plain, and pictures go inside the piece, where its content needs them. Variety comes from the look and from how the parts sit inside the piece.
 - **Tints come only from the sheet**: `color-mix(in srgb, var(--accent) 18%, var(--ground))`, or ink, surface and inset mixed the same way, at 6 to 40 %. No new hues, and no gradients across hues.
 - **The direction owns the page.** Its `body` and `#piece` rules replace the base page's centring.
 - **Phone first.** Every layout holds at 360 px, and two columns stack below 720 px.
@@ -119,16 +119,24 @@ body { margin: 0; min-height: 100dvh; display: grid; place-items: center; paddin
 
 ## Cut paper
 
-- **Composition.** The piece is the top of a small stack of paper: two or three sheets under it, each a different tint, offset a few pixels and turned by at most 1.5°. Flat shapes cut from paper carry the picture, such as leaves, a plate or a record.
-- **Picture and colour.** Tints of the accent at 18 to 35 % and of ink at 8 % for the lower sheets; the top sheet is the surface.
+- **Composition.** The piece sits on the ground as the object it is, and paper shows inside the picture: flat shapes cut from paper in tints, each a little above the last, such as leaves, a plate or a record, and windows cut through the surface that show a tint beneath. Only an object made of paper, such as a card, a ticket, a note or a menu, sits on a small stack: two sheets under it, each a different tint, offset a few pixels and turned by at most 1.5°. Anything else, such as a device, a chart or a whole reel, sits on one flat sheet behind the whole composition at most.
+- **Picture and colour.** Tints of the accent at 18 to 35 % and of ink at 8 % for the cut shapes and the sheets; the piece's own face is the surface.
 - **Type.** Token sizes; a heading may sit on a paper tab.
 - **Ornament.** One paper tab or strip of tape, in a tint.
-- **Avoid.** Shadows beyond the material's; torn-edge clip-art; more than three layers; a turned sheet that holds text.
+- **Avoid.** Turned sheets under a device, a chart or a scene, which turn it into the top note of a pad; shadows beyond the material's; torn-edge clip-art; more than three layers; a turned sheet that holds text.
 
 ```css
 body { margin: 0; min-height: 100dvh; display: grid; place-items: center; padding: 32px 20px; }
-#piece { position: relative; width: min(360px, 100%); isolation: isolate; }
-.sheet { position: relative; padding: 22px; background: var(--surface); border-radius: var(--radius); box-shadow: var(--shadow); }
+#piece { position: relative; width: min(360px, 100%); padding: 22px; background: var(--surface); border-radius: var(--radius); box-shadow: var(--shadow); }
+.cut { fill: color-mix(in srgb, var(--accent) 28%, var(--ground)); } /* shapes in the picture's <svg>, back to front */
+.cut.low { fill: color-mix(in srgb, var(--ink) 8%, var(--ground)); }
+.window { background: color-mix(in srgb, var(--accent) 22%, var(--ground)); border-radius: var(--radius); box-shadow: inset 0 2px 3px rgb(0 0 0 / 0.16); } /* a hole cut through the surface */
+```
+
+Only for an object made of paper, the stack under it:
+
+```css
+#piece { isolation: isolate; }
 .layer { position: absolute; inset: 0; z-index: -1; border-radius: var(--radius); box-shadow: var(--shadow); }
 .layer.one { translate: 8px 10px; rotate: 1.2deg; background: color-mix(in srgb, var(--accent) 28%, var(--ground)); }
 .layer.two { translate: -7px 18px; rotate: -1deg; background: color-mix(in srgb, var(--ink) 8%, var(--ground)); }
