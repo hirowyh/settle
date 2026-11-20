@@ -1,0 +1,19 @@
+skills/settle/scripts/export.mjs
+  s_38b164aecdef9a::t_1c39b2aa642451 46-48
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "d78a7fbbf1a18b4e0f2e17aa3baf7dd73faf372f",
+  "prompts": {},
+  "sessions": {
+    "s_38b164aecdef9a": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "602d830b-413d-4939-93e4-d4442d7e0af5",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "hirowyh <310033246+hirowyh@users.noreply.github.com>"
+    }
+  }
+}
