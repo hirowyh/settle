@@ -75,7 +75,7 @@ Reply with:
 - What went unchecked, if anything, such as Safari on a real phone.
 - An offer to re-deal one part of the look (`node scripts/deal.mjs --redeal palette`), and for a vague request three variants behind a switcher.
 
-For a reel, offer the video export: `node scripts/export.mjs reel.html --out reel.mp4` (or `--gif`) renders it with ffmpeg, averaging four sub-frames per frame for motion blur.
+For a reel, offer the video export: `node scripts/export.mjs reel.html --out reel.mp4` renders it with ffmpeg at 60 fps in the reel's own shape, one sample per frame; `--gif` adds a GIF beside the MP4, `--once` makes that GIF play once, and `--samples 4` adds motion blur at four times the render time.
 
 ## Scripts
 
@@ -84,7 +84,7 @@ For a reel, offer the video export: `node scripts/export.mjs reel.html --out ree
 | `scripts/deal.mjs --brief "…" [--tone …] [--register …] [--dark] [--project]`                     | Deals three looks; `--pick <n>` prints the chosen sheet (and keeps it as the project's look with `--project`); `--redeal <part>` deals one part again; `--check` checks the library                                                                                                          |
 | `scripts/lint.mjs <file>`                                                                         | Static checks of a standalone file; exits 1 on a FAIL                                                                                                                                                                                                                                        |
 | `scripts/snap.mjs <file or url> --out <dir> --sheet [--size WxH] [--times …] [--do "…"] [--calm]` | Frames on a stopped clock with real input and a contact sheet, then the checks of the settled page that its header lists                                                                                                                                                                     |
-| `scripts/export.mjs <reel> [--out reel.mp4] [--gif]`                                              | A reel to MP4 or GIF with four-sub-frame motion blur                                                                                                                                                                                                                                         |
+| `scripts/export.mjs <reel> [--out reel.mp4] [--gif] [--once]`                                     | A reel to MP4 in its own shape, from one lossless render; `--gif` adds a GIF beside it, `--once` plays that GIF once, `--samples 4` adds motion blur                                                                                                                                         |
 | `scripts/photo.mjs "<what it shows>" [--out photo.jpg]`                                           | One openly licensed photo (CC0, public domain or CC BY) saved where it runs, with the credit line for the piece; only when the person asks for a real photo                                                                                                                                  |
 
 They need Node 22 or later and a Chromium browser: snap.mjs finds Chrome, Chromium, Edge or Brave in its usual place, and any other through `CHROME`. When none is found, it says so in one line: review the code against `references/review.md` and name the frames as unchecked. Export also needs ffmpeg, and photo.mjs a network. Nothing to install.

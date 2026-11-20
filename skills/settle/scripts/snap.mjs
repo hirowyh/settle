@@ -17,7 +17,7 @@
 //        answered at once with Cancel, so a dialog never stalls the run and never confirms a delete.
 // --sheet writes sheet.png, every frame in a grid with its time; --calm turns on reduced motion;
 // --eval <js> prints the value of an expression after the last frame; --stage shoots a reel's
-// stage alone, filling the frame (export.mjs uses it).
+// stage alone, filling the frame; --frames-only writes the frames and skips every check below (export.mjs uses both).
 // It also reports console errors, requests to other hosts, sideways overflow and the smallest text, then checks the
 // settled page: text contrast on the surface behind it, 44 px targets, focus after each step, click() on every control of a standalone file,
 // digit runs in the accessibility tree, text hidden at rest or cut by its box, fields under 16 px, the idle cost per
@@ -39,7 +39,7 @@ const opt = (name, fallback) => {
   return i >= 0 ? argv[i + 1] : fallback;
 };
 const flag = (name) => argv.includes(`--${name}`);
-const target = argv.find((a, i) => !a.startsWith("--") && !(argv[i - 1]?.startsWith("--") && !["--sheet", "--calm", "--stage"].includes(argv[i - 1])));
+const target = argv.find((a, i) => !a.startsWith("--") && !(argv[i - 1]?.startsWith("--") && !["--sheet", "--calm", "--stage", "--frames-only"].includes(argv[i - 1])));
 if (!target) {
   console.error('usage: node snap.mjs <file or url> --out <dir> [--size WxH] [--times a,b] [--do "t step; ..."] [--fps 60 --duration 14] [--sheet] [--calm]');
   process.exit(2);
@@ -152,14 +152,17 @@ async function capture(cfg, b) {
       continue;
     }
     if (step.t === null) await new Promise((r) => setTimeout(r, 1500));
-    if (kind === "reel") await evaluate(`window.reel.pause(); window.reel.seek(${step.t}); true`);
-    await evaluate(twoFrames);
-    const { data } = await b.cdp("Page.captureScreenshot", { format: "png", clip: { x: 0, y: 0, width, height, scale: 1 } });
+    // A reel draws its frame from t alone, so one frame after the seek is enough: it shoots the same pixels as two.
+    if (kind === "reel") await evaluate(`window.reel.pause(); window.reel.seek(${step.t}); new Promise((r) => requestAnimationFrame(() => r(true)))`);
+    else await evaluate(twoFrames);
+    const shoot = () => b.cdp("Page.captureScreenshot", { format: "png", clip: { x: 0, y: 0, width, height, scale: 1 } });
+    const { data } = await shoot().catch(shoot); // a screenshot can fail once in a long run; one retry keeps the render
     b.write(`${out}/f_${String(shots.length).padStart(4, "0")}.png`, data);
     shots.push({ data: cfg.sheet ? data : null, label: step.t === null ? "after load" : `${step.t.toFixed(2)} s${lastStep ? " · " + lastStep : ""}` });
   }
 
   if (cfg.evalExpr) console.log("eval:", JSON.stringify(await evaluate(cfg.evalExpr)));
+  if (cfg.framesOnly) { console.log(`${shots.length} frame(s) in ${out} (${kind})`); return false; }
 
   // Measured checks on the settled page: what a look at one frame can miss.
   const m = await evaluate(`(() => {
@@ -392,7 +395,7 @@ async function capture(cfg, b) {
   return report.some((l) => l.startsWith("FAIL"));
 }
 
-const cfg = { url, out, width, height, times, steps, calm: flag("calm"), stage: flag("stage"), sheet: flag("sheet"), evalExpr: opt("eval") };
+const cfg = { url, out, width, height, times, steps, calm: flag("calm"), stage: flag("stage"), sheet: flag("sheet"), framesOnly: flag("frames-only"), evalExpr: opt("eval") };
 mkdirSync(out, { recursive: true });
 if (spawnSync("ego-browser", ["--version"]).status === 0) {
   const script = `const fs = await import("node:fs");
@@ -409,7 +412,7 @@ try { await (${capture})(${JSON.stringify(cfg)}, b); } finally { await task.fini
   const said = (r.stdout || "") + (r.stderr || ""); // ego lite prints the script's console on stderr, console.error as "[error] "
   if (r.status !== 0) process.stderr.write(said);
   else for (const line of said.split("\n").filter(Boolean)) line.startsWith("[error] ") ? console.error(line.slice(8)) : console.log(line);
-  if (r.status !== 0 || /^FAIL/m.test(said)) process.exitCode = 1;
+  if (r.status !== 0 || (!cfg.framesOnly && /^FAIL/m.test(said))) process.exitCode = 1;
 } else {
   // the Chromium browsers that drive the same way, in their usual places on a Mac, on Linux and on Windows
   const chrome = process.env.CHROME || [

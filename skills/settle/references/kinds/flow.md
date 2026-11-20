@@ -41,7 +41,7 @@ A dealt look by default (`scripts/deal.mjs`). Dark grounds (`--dark`) only when 
 
 ## Export
 
-The live page is the deliverable. When the person wants a video (for X), `scripts/export.mjs` renders the reel to MP4 or GIF with ffmpeg, four sub-frames per frame for motion blur.
+The live page is the deliverable. When the person wants a video (for X), `scripts/export.mjs` renders the reel once at 60 fps in its own shape and makes an MP4 with ffmpeg, and with `--gif` a GIF beside it (`--once` for a reel that plays once); `--samples 4` adds motion blur.
 
 ## Pitfalls
 
