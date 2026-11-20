@@ -19,7 +19,13 @@ settle is a skill for coding agents such as Claude Code. Describe a piece of int
 npx skills@latest add hirowyh/settle
 ```
 
-Run it in your project's folder, or add `-g` to use settle in every project. Then ask your agent for what you want, such as "make a switch that feels really nice to click". settle writes the piece in the project's own code and style, with no new packages. Anywhere else, you get one HTML file that opens in any browser.
+Run it in your project's folder, or add `-g` to use settle in every project. In Claude Code you can install it as a plugin instead:
+
+```text
+/plugin install settle --marketplace hirowyh/settle
+```
+
+To have it update itself, open `/plugin`, go to Marketplaces, pick settle and choose Enable auto-update. Then ask your agent for what you want, such as "make a switch that feels really nice to click". settle writes the piece in the project's own code and style, with no new packages. Anywhere else, you get one HTML file that opens in any browser.
 
 ## The same request, with and without settle
 

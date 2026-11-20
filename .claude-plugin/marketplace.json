@@ -1,0 +1,25 @@
+{
+  "name": "settle",
+  "owner": {
+    "name": "hirowyh",
+    "url": "https://github.com/hirowyh"
+  },
+  "description": "Interface that moves well, from a plain description.",
+  "plugins": [
+    {
+      "name": "settle",
+      "source": "./",
+      "description": "Interface that moves well, from a plain description.",
+      "author": {
+        "name": "hirowyh",
+        "url": "https://github.com/hirowyh"
+      },
+      "homepage": "https://github.com/hirowyh/settle",
+      "repository": "https://github.com/hirowyh/settle",
+      "license": "Apache-2.0",
+      "keywords": ["animation", "motion", "ui", "frontend", "design"],
+      "category": "design",
+      "skills": ["./skills/"]
+    }
+  ]
+}
