@@ -1,0 +1,25 @@
+skills/settle/SKILL.md
+  s_38b164aecdef9a::t_8921f4c764d41c 78,87
+skills/settle/references/kinds/flow.md
+  s_38b164aecdef9a::t_8fe91bf534bf45 44
+skills/settle/scripts/snap.mjs
+  s_38b164aecdef9a::t_8a25ebec23e3a4 20,42,155-159,165,398,415
+skills/settle/scripts/export.mjs
+  s_38b164aecdef9a::t_06454c7f4893cb 2,4-5,7-13,15,25-26,28,31-34,41,43-47,49-50,56,59-63,65-79
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "c4768d449fcb972d1ce30aace57d3431934df132",
+  "prompts": {},
+  "sessions": {
+    "s_38b164aecdef9a": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "602d830b-413d-4939-93e4-d4442d7e0af5",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "hirowyh <310033246+hirowyh@users.noreply.github.com>"
+    }
+  }
+}
