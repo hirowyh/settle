@@ -43,7 +43,9 @@ const mb = (f) => (statSync(f).size / 1e6).toFixed(1) + " MB";
 // One probe reads the length (the reel shell sets the scrubber's max to DURATION) and the stage's shape.
 const probe = `(() => { const s = document.getElementById("stage"), a = parseFloat(getComputedStyle(s).getPropertyValue("--aspect")), r = s.getBoundingClientRect();
   return [window.reel.duration || +(document.getElementById("scrub")?.max) || 0, a > 0 ? a : r.width / r.height]; })()`;
-const [probed, aspect] = JSON.parse(/eval: (.*)/.exec(run("node", [snap, reel, "--out", join(tmpdir(), "settle-export-probe"), "--size", "1200x1200", "--times", "0", "--frames-only", "--eval", probe]))[1]);
+const said = /eval: (.*)/.exec(run("node", [snap, reel, "--out", join(tmpdir(), "settle-export-probe"), "--size", "1200x1200", "--times", "0", "--frames-only", "--eval", probe]))?.[1];
+if (!said || said === "undefined") throw new Error(`${reel} is not a reel: export needs window.reel and a #stage`);
+const [probed, aspect] = JSON.parse(said);
 const duration = Number(opt("duration", 0)) || probed;
 if (!(duration > 0)) throw new Error("could not read the reel's DURATION; pass --duration");
 const even = (n) => 2 * Math.round(n / 2);
