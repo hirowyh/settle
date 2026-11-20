@@ -1,0 +1,25 @@
+skills/settle/library/directions.json
+  s_78c4006737a5e2::t_db9faab7b4fdfb 6
+skills/settle/references/directions.md
+  s_78c4006737a5e2::t_dd78406edeb727 3,8,122-123,126,130-139
+skills/settle/scripts/deal.mjs
+  s_78c4006737a5e2::t_08e12bfe717a39 88-90,130
+skills/settle/scripts/lint.mjs
+  s_78c4006737a5e2::t_a22e17754dfc07 138-143
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "87d23d535bba778885a73e1d9bddb816e36210e0",
+  "prompts": {},
+  "sessions": {
+    "s_78c4006737a5e2": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "876078f1-bbfb-4def-b942-68c49d6fbc9a",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "hirowyh <310033246+hirowyh@users.noreply.github.com>"
+    }
+  }
+}
